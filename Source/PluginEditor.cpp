@@ -16,7 +16,7 @@ JuceFaustAudioProcessorEditor::JuceFaustAudioProcessorEditor (JuceFaustAudioProc
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 600);
+    setSize (500, 500);
 
     juce::LookAndFeel::setDefaultLookAndFeel(&myFeel);
 
