@@ -16,7 +16,7 @@ Audio processing implemented using the Faust DSP library
 2.Create an empty build directory then run cmake commands to build the project
 
 ## Output of the Project
-If the project succefully runs, the output of the build should be somehting like this. Using the trigger button it should give some output like modulated frequency signal. Modulation can be controlled through the knobs provided on UI.
+After the project successfully runs, the output of the build should be somehting like shown in figure below. Using the trigger button it should give some output like modulated frequency signal. Modulation can be controlled through the knobs provided on UI.
 ![User Interface of the Standalone Application build from source code provided](/UI_Output.jpg)
 
 
