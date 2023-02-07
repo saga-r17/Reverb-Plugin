@@ -1,1 +1,1 @@
-# SpectralAxis
+# juce-faust-integration
