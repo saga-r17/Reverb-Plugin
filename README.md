@@ -1,9 +1,9 @@
 # FreeReverb Plugin
 
 ## Prerequisites
--A working installation of the JUCE framework (optional because CMakeLists has a script that fetch JUCE from repositary)
--A working installation of the Faust DSP library (mandatory)
--CMake installed on your system
+- A working installation of the JUCE framework (optional because CMakeLists has a script that fetch JUCE from repositary)
+- A working installation of the Faust DSP library (mandatory)
+- CMake installed on your system
 
 ## Output UI
 
