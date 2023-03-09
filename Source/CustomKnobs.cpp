@@ -28,11 +28,11 @@ void CustomFeel::drawRotarySlider(juce::Graphics& g, int x, int y, int width, in
     auto outline = slider.findColour(juce::Slider::rotarySliderOutlineColourId);
     auto fill = slider.findColour(juce::Slider::rotarySliderFillColourId);
 
-    auto bounds = juce::Rectangle<int>(x, y, width, height).toFloat().reduced(10);
+    auto bounds = juce::Rectangle<int>(x, y, width, height).toFloat();
 
     auto radius = juce::jmin(bounds.getWidth(), bounds.getHeight()) / 2.0f;
     auto toAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
-    auto lineW = juce::jmin(8.0f, radius * 0.5f);
+    auto lineW = juce::jmin(4.0f, radius * 0.5f);
     auto arcRadius = radius - lineW * 0.5f;
 
     juce::Path backgroundArc;
@@ -45,14 +45,25 @@ void CustomFeel::drawRotarySlider(juce::Graphics& g, int x, int y, int width, in
         rotaryEndAngle,
         true);
 
-    g.setColour(outline);
-    g.strokePath(backgroundArc, juce::PathStrokeType(lineW, juce::PathStrokeType::curved, juce::PathStrokeType::square));
+
+    //g.setColour(outline);
+    //g.strokePath(backgroundArc, juce::PathStrokeType(lineW, juce::PathStrokeType::curved, juce::PathStrokeType::square));
 
     juce::Point<float> thumbPoint(bounds.getCentreX() + (arcRadius - 10.0f) * std::cos(toAngle - juce::MathConstants<float>::halfPi),
         bounds.getCentreY() + (arcRadius - 10.0f) * std::sin(toAngle - juce::MathConstants<float>::halfPi));
 
-    g.setColour(fill);
-    g.drawLine(backgroundArc.getBounds().getCentreX(), backgroundArc.getBounds().getCentreY(), thumbPoint.getX(), thumbPoint.getY(), lineW);
+    //g.setColour(fill);
+   // g.drawLine(backgroundArc.getBounds().getCentreX(), backgroundArc.getBounds().getCentreY(), thumbPoint.getX(), thumbPoint.getY(), lineW);
+
+    knobImage = juce::ImageCache::getFromMemory(BinaryData::knob_png, BinaryData::knob_pngSize);
+
+    float scaleX = (float) bounds.getWidth() / (float) knobImage.getWidth();
+    float scaleY = (float) bounds.getHeight() / (float) knobImage.getHeight();
+
+    juce::AffineTransform transform;
+    transform = transform.rotated(toAngle, knobImage.getWidth() / 2.0f, knobImage.getHeight() / 2.0f).scaled(scaleX,scaleY); // rotate by 90 degrees around the center of the image
+
+    g.drawImageTransformed(knobImage,transform);
 
     if (slider.isEnabled())
     {
@@ -66,7 +77,7 @@ void CustomFeel::drawRotarySlider(juce::Graphics& g, int x, int y, int width, in
             toAngle,
             true);
 
-        g.setColour(fill);
-        g.strokePath(valueArc, juce::PathStrokeType(lineW, juce::PathStrokeType::curved, juce::PathStrokeType::square));
+        //g.setColour(fill);
+        //g.strokePath(valueArc, juce::PathStrokeType(lineW, juce::PathStrokeType::curved, juce::PathStrokeType::square));
     }
 }

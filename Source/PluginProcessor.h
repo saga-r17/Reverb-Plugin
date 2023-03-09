@@ -1,44 +1,27 @@
-/*
-  ==============================================================================
-
-    This file contains the basic framework code for a JUCE plugin processor.
-
-  ==============================================================================
-*/
 
 #pragma once
 
 #include <JuceHeader.h>
-#include"dspfaust.h"
-#include"polyFM.h"
+#include "reverbDSP.h"
 
 //==============================================================================
 /**
 */
-class JuceFaustAudioProcessor  : public juce::AudioProcessor
+class FreeReverbAudioProcessor  : public juce::AudioProcessor
                             #if JucePlugin_Enable_ARA
                              , public juce::AudioProcessorARAExtension
                             #endif
 {
 public:
     //==============================================================================
-    JuceFaustAudioProcessor();
-    ~JuceFaustAudioProcessor() override;
+    FreeReverbAudioProcessor();
+    ~FreeReverbAudioProcessor() override;
 
-
-    void setAttack(float attack);
-    void setDecay(float decay);
-    void setSustain(float sustain);
-    void setRelease(float release);
-    void setBend(float bend);
-
-    void setModulation(float modulation);
-    void setMod_ratio(float mod_ratio);
-
-    void setFrequency(int frequency);
-    void setGain(float gain);
-    void setGate(bool gate);
-
+    //thee functions used to set the panning,distance and channel value to the audioprocessor
+    void setWet(float wet);
+    void setDamp(float damp);
+    void setRoom(float room);
+    void setSpread(float spread);
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -75,12 +58,16 @@ public:
 
 private:
 
-    //audio* driver;
-    //FaustPolyEngine* faustObject;
-    MapUI* fUI;
-    dsp* fDSP;
-    float** outputs;
+
+    private:
+
+    //This code declares four variables: fUI of type MapUI, fDSP of type dsp, and two arrays of float pointers, inputs and outputs
+
+    MapUI* fUI; //a pointer to a MapUI class instance, which is responsible for handling the graphical user interface for the DSP.
+    dsp* fDSP;  // a pointer to a dsp class instance, which contains the audio processing code.
+    float **inputs; //a 2D array of floats, representing the input audio data. The first dimension represents the channel, and the second dimension represents the sample index.
+    float **outputs; //a 2D array of floats, representing the output audio data. 
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (JuceFaustAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FreeReverbAudioProcessor)
 };
